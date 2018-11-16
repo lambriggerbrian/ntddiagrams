@@ -1,0 +1,15 @@
+﻿extends layout
+
+block content
+    h1 Login
+    // register form
+    form(method='POST' action='/login')
+        div.form-group
+            label(for='username') Username:
+            input#name.form-control(type='text', placeholder='Username', name='username' required)
+            span= userError
+        div.form-group
+            label(for='pw') Password:
+            input#pw.form-control(type='password' name='password' required)
+            span= passwordError
+        button.btn.btn-primary(type='submit') Login

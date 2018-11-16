@@ -1,0 +1,15 @@
+﻿extends layout
+
+block content
+    if !username
+        h3 Welcome to NTDDiagrams
+    else
+        div.row
+            each post, i in posts
+                div.col.s3
+                    h1= "Chapter " + post.chapter + ": " + post.name
+                        a.glyphicon.glyphicon-remove-sign(href="/admin/delete?="+post._id)
+                    img.responsive-image(src="./files/"+post.filename alt="image" class="responsive-img")
+                    p.center-align.caption= post.caption
+            else
+                h1 No Posts Found :(

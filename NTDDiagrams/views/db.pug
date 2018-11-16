@@ -1,0 +1,9 @@
+﻿extends layout
+
+block content
+    h1 Database Records
+    if userlist
+        ul
+            each user, i in userlist
+                li
+                    p User: #{user.username}; Email: #[a(href="mailto:#{user.email}")  #{user.email}]

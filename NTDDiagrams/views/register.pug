@@ -1,0 +1,25 @@
+﻿extends layout
+
+block content
+    h1 Register
+    // register form
+    form(method='POST' action='/register')
+        div.form-group
+            label(for='email') Email:
+            input#email.form-control(type='email', placeholder='name@email.com' name='email' required)
+            span= emailError
+        div.form-group
+            label(for='username') Username:
+            input#name.form-control(type='text', placeholder='Username', name='username' required)
+            span= userError
+        div.form-group
+            label(for='pw') Password:
+            input#pw.form-control(type='password' name='password' required)
+            span= passwordError
+        div.form-group
+            label(for='pw2') Confirm Password:
+            input#pw2.form-control(type='password' name='passwordConf')
+        div.form-group
+            label(for='role') Admin?
+            input#admin.form-control(type='radio', name='admin')
+        button.btn.btn-primary(type='submit') Sign up

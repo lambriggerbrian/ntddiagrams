@@ -1,0 +1,37 @@
+﻿doctype html
+html
+    head
+        title= title
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/stylesheets/main.css")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+    body
+        nav.navbar.navbar-inverse
+            div.container-fluid
+                div.navbar-header
+                    button(type="button", data-toggle="collapse", data-target="#myNavbar").navbar-toggle
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                div#myNavbar.collapse.navbar-collapse
+                    ul.nav.navbar-nav
+                        li
+                            a(href="/") Home
+                        if !username
+                            li
+                                a(href="/login") Login
+                        if admin                            
+                            li
+                                a(href="/admin/post") Post
+                            li
+                                a(href="/admin/register") Register
+                            li
+                                a(href="/admin/db") Database
+                        if username
+                            li
+                                a(href="/logout") Logout
+        div
+            if message
+                h3 #{message}
+        block content
