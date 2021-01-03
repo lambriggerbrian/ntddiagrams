@@ -50,7 +50,6 @@ function hideModal(element) {
     if (element.className !== "modal") return;
     var navbar = document.getElementById("navbar");
     var modal = element;
-    console.log(modal);
     navbar.style.display = "flex";
     modal.style.display = "none";
 }
