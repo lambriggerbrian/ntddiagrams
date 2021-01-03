@@ -1,15 +1,27 @@
 ﻿extends layout
 
+block scripts
+    script(src="/public/js/modal.js")
 block content
     if !username
-        h3 Welcome to NTDDiagrams
+        h3 Welcome to NTD Diagrams
     else
         div.row
             each post, i in posts
-                div.col.s3
-                    h1= "Chapter " + post.chapter + ": " + post.name
-                        a.glyphicon.glyphicon-remove-sign(href="/admin/delete?="+post._id)
-                    img.responsive-image(src="./files/"+post.filename alt="image" class="responsive-img")
-                    p.center-align.caption= post.caption
+                div.col-lg-4.col-md-6.mb-4
+                    div.card.post.h-80
+                        img.card-img-top.post-img(src="/user/get-s3?name="+post.filename alt=post.name)
+                        div.card-body
+                            h4.card-title
+                                span= post.name
+                                if admin
+                                    span.admin-tools
+                                        a(href="/admin/delete?id="+post._id)
+                                            span.fas.fa-trash
+                        div.modal
+                            button.close(data-dismiss="modal")
+                                span(aria-hidden="true") &times;
+                                span.sr-only Close
+                            img.modal-content
             else
                 h1 No Posts Found :(

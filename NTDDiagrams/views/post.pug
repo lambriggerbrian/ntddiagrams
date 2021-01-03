@@ -1,22 +1,21 @@
 ﻿extends layout
 
+block scripts
+    script(src="/public/js/fileInput.js")
 block content
     h1 Create Post
     // Post form
     form(method="POST" action='/admin/post' enctype="multipart/form-data")
         div.form-group
             label(for='name') Name:
-            input#name.form-control.validate(type='text', placeholder='Name', name='name' required)
-        div.form-group
-            label(for='chapter') Chapter:
-            input#chapter.form-control.validate(type='number', placeholder='Chapter', name='chapter' required)
+            input#name.form-control.validate(type='text' placeholder='Name' name='name' required)
+        div.form-group.hidden
+            input#filename(type='hidden' name='filename' required)
         div.form-group
             .file-field.input-field
                 .btn.grey
                     label(for='file') File:
                     input#file(type='file' name='file' required)
                 .file-path-wrapper
-        div.form-group
-            label(for='caption') Caption:
-            input#caption(type='text' name='caption')
+            img#preview(src="https://via.placeholder.com/150.png?text=No+Image")
         button.btn.btn-primary(type='submit', name='action') Post

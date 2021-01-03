@@ -32,13 +32,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
-    <Compile Include="config\config.js">
+    <Compile Include="models\schema.js" />
+    <Compile Include="public\js\fileInput.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="models\schema.js" />
+    <Compile Include="public\js\modal.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\admin.js" />
     <Compile Include="routes\upload.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="routes\user.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include="package.json" />
@@ -60,11 +66,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="config\" />
     <Folder Include="models\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
-    <Folder Include="public\javascripts\" />
+    <Folder Include="public\js\" />
     <Folder Include="public\files\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />

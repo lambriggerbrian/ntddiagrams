@@ -4,12 +4,6 @@ var fs = require('fs');
 const path = require('path');
 
 var UserSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-        trim: true
-    },
     username: {
         type: String,
         unique: true,
@@ -58,20 +52,12 @@ UserSchema.statics.authenticate = function (username, password, callback) {
 var PostSchema = new mongoose.Schema({
     name: {
         type: String,
-        unique: true,
         required: true,
         trim: true
-    },
-    chapter: {
-        type: Number,
-        required: true
     },
     filename: {
         type: String,
         required: true
-    },
-    caption: {
-        type: String
     },
 });
 
@@ -94,20 +80,26 @@ Post.deletePost = function (id, callback) {
         if (err) {
             return callback(err);
         } else {
-            console.log(posts[0].filename);
-            fs.unlink(path.join("public", "files", posts[0].filename), function (err) {
+            Post.deleteOne({ id: id }, function (err) {
                 if (err) {
-                    return callback(err);
+                    next(err);
                 } else {
-                    Post.deleteOne({ id: id }, function (err) {
-                        if (err) {
-                            next(err);
-                        } else {
-                            return callback();
-                        }
-                    });
+                    return callback();
                 }
             });
+            //fs.unlink(path.join("public", "files", posts[0].filename), function (err) {
+            //    if (err) {
+            //        return callback(err);
+            //    } else {
+            //        Post.deleteOne({ id: id }, function (err) {
+            //            if (err) {
+            //                next(err);
+            //            } else {
+            //                return callback();
+            //            }
+            //        });
+            //    }
+            //});
         }
     });
 }

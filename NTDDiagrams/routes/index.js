@@ -10,12 +10,12 @@ var router = express.Router();
 router.get('/', function (req, res) {
     if (req.session.username) {
         schema.Post.getPosts(function (err, posts) {
-            for (var i in posts) { 
-                //console.log(posts[i].path);
-                if (!fs.existsSync(posts[i].path)) {
-                    //posts[i].path = './images/900x800.png';
-                }
-            }
+            //for (var i in posts) { 
+            //    //console.log(posts[i].path);
+            //    if (!fs.existsSync(posts[i].path)) {
+            //        //posts[i].path = './images/900x800.png';
+            //    }
+            //}
             res.render('index', { posts: posts });
         });
     } else {
@@ -50,7 +50,7 @@ router.post('/login', function (req, res) {
     });
 });
 
-/* Get logout page */
+/* GET logout page */
 router.get('/logout', function (req, res) {
     if (req.session) {
         req.session.destroy(function (e) {

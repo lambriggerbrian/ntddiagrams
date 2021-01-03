@@ -8,20 +8,19 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+
+// MongoDB Setup
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
-
-const config = require('./config/config.js');
-
-mongoose.connect("mongodb://"+config.dbuser+":"+config.dbpass+"@"+config.dburl+":"+config.dbport+"/"+config.dbname, function (e, client) {
+mongoose.connect("mongodb://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+process.env.DB_URL+":"+process.env.DB_PORT+"/"+process.env.DB_NAME, function (e, client) {
     if (!e) {
         console.log("Mongoose connected");
     }
 });
-
 var db = mongoose.connection;
 
 var routes = require('./routes/index');
+var user = require('./routes/user');
 var admin = require('./routes/admin');
 
 var app = express();
@@ -36,10 +35,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-    secret: config.secret,
+    secret: process.env.SECRET,
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: db })
@@ -49,21 +48,33 @@ app.use(function (req, res, next) {
     res.locals = {
         username: req.session.username,
         admin: req.session.admin,
-    }
+    };
     return next();
 });
 
 app.use('/', routes);
 
-app.use('/admin', function (req, res, next) {
+app.use('/user', function (req, res, next) {
     if (req.session.username) {
-        next()
+        return next();
     } else {
         var err = new Error('Not Authorized');
         err.status = 401;
-        next(err);
+        return next(err);
     }
 });
+
+app.use('/user', user);
+
+app.use('/admin', function (req, res, next) {
+    if (req.session.username && req.session.admin) {
+        return next();
+    } else {
+        var err = new Error('Not Authorized');
+        err.status = 401;
+        return next(err);
+    }
+}, admin);
 
 app.use('/admin', admin);
 
@@ -71,7 +82,7 @@ app.use('/admin', admin);
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
-    next(err);
+    return next(err);
 });
 
 // error handlers

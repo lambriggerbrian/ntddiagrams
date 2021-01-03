@@ -15,7 +15,7 @@ const upload = multer({
     fileFilter: function (req, file, callback) {
         validateFile(file, callback);
     }
-}).single('file');
+});
 
 var validateFile = function (file, callback) {
     var allowedFileTypes = /\.jpeg|\.jpg|\.png|\.gif/;

@@ -3,11 +3,7 @@
 block content
     h1 Register
     // register form
-    form(method='POST' action='/register')
-        div.form-group
-            label(for='email') Email:
-            input#email.form-control(type='email', placeholder='name@email.com' name='email' required)
-            span= emailError
+    form(method='POST' action='/admin/register')
         div.form-group
             label(for='username') Username:
             input#name.form-control(type='text', placeholder='Username', name='username' required)
@@ -21,5 +17,5 @@ block content
             input#pw2.form-control(type='password' name='passwordConf')
         div.form-group
             label(for='role') Admin?
-            input#admin.form-control(type='radio', name='admin')
+            input#admin.form-control(type='checkbox', name='admin')
         button.btn.btn-primary(type='submit') Sign up

@@ -1,37 +1,44 @@
 ﻿doctype html
 html
     head
-        title= title
-        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
-        link(rel="stylesheet", href="/stylesheets/main.css")
+        title= NTDDiagrams
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/public/stylesheets/main.css")
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous")
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
-        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js")
     body
-        nav.navbar.navbar-inverse
-            div.container-fluid
-                div.navbar-header
-                    button(type="button", data-toggle="collapse", data-target="#myNavbar").navbar-toggle
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                div#myNavbar.collapse.navbar-collapse
-                    ul.nav.navbar-nav
-                        li
-                            a(href="/") Home
+        nav#navbar.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+            div.container
+                div.navbar-brand NTD Diagrams 
+                    span.author by: Savanna Randi
+                button(type="button", data-toggle="collapse", data-target="#navbarResponsive").navbar-toggler
+                    span.navbar-toggler-icon
+                div#navbarResponsive.collapse.navbar-collapse
+                    ul.navbar-nav.ml-auto
+                        li.nav-item
+                            a.nav-link(href="/") Home
                         if !username
-                            li
-                                a(href="/login") Login
+                            li.nav-item
+                                a.nav-link(href="/login") Login
                         if admin                            
-                            li
-                                a(href="/admin/post") Post
-                            li
-                                a(href="/admin/register") Register
-                            li
-                                a(href="/admin/db") Database
+                            li.nav-item
+                                a.nav-link(href="/admin/post") Post
+                            li.nav-item
+                                a.nav-link(href="/admin/register") Register
+                            li.nav-item
+                                a.nav-link(href="/admin/db") Database
                         if username
-                            li
-                                a(href="/logout") Logout
-        div
-            if message
-                h3 #{message}
-        block content
+                            li.nav-item
+                                a.nav-link(href="/logout") Logout
+        div.container
+            div.col
+                div.row.content
+                    if message
+                        h3 #{message}
+                    else
+                        div.col
+                            block content
+                            if username
+                                p.asterisk Modified from BIOL 117 course notes and CDC website 
+    block scripts
