@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.376.0",
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.15.0",
     "connect": "^3.6.6",
     "connect-mongo": "^2.0.1",
